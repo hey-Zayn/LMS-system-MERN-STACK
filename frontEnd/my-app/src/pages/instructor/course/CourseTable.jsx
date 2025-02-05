@@ -62,10 +62,10 @@ const invoices = [
 const CourseTable = () => {
   const navigate = useNavigate();
   const { data, isLoading } = useGetCreatorCourseQuery();
-    if(isLoading){
-        return <h1>loading....</h1>
-    }
-    console.log(`Data =>`,data)
+  if (isLoading) {
+    return <h1>loading....</h1>;
+  }
+  console.log(`Data =>`, data);
   return (
     <div>
       <Button
@@ -88,11 +88,15 @@ const CourseTable = () => {
         <TableBody>
           {data.courses.map((courses) => (
             <TableRow key={courses._id}>
-              <TableCell className="font-medium">{courses?.coursePrice || "NA"}</TableCell>
-              <TableCell><Badge>{courses.isPublished ? "Published" : "Draft"}</Badge></TableCell>
+              <TableCell className="font-medium">
+                {courses?.coursePrice || "NA"}
+              </TableCell>
+              <TableCell>
+                <Badge>{courses.isPublished ? "Published" : "Draft"}</Badge>
+              </TableCell>
               <TableCell>{courses.courseTitle}</TableCell>
               <TableCell className="text-right">
-                <Button>Edit</Button>
+                <Button size="sm" variant="outline" onClick={()=>{ navigate(`${courses._id}`)}} >Edit</Button>
               </TableCell>
             </TableRow>
           ))}
