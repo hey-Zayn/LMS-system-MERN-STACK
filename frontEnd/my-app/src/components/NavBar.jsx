@@ -86,7 +86,7 @@ const NavBar = () => {
                     <DropdownMenuItem className="cursor-pointer hover:outline-none">
                       <span>
                         {" "}
-                        <Link to="profile">Profile</Link>{" "}
+                        <Link to="profile">Edit Profile</Link>{" "}
                       </span>
                     </DropdownMenuItem>
 

@@ -11,6 +11,11 @@ import MyLearning from "./pages/student/MyLearning";
 import Profile from "./pages/student/Profile";
 import Major from "./pages/Major";
 import HomeHero from "./components/HomeHero";
+import Dashboard from "./pages/instructor/Dashboard";
+import Sidebar from "./pages/instructor/lecture/SideBar";
+import CourseTable from "./pages/instructor/course/CourseTable";
+import AddCourse from "./pages/instructor/course/AddCourse";
+// import { Sidebar } from "./components/ui/sidebar";
 
 const appRouter = createBrowserRouter([
   {
@@ -44,6 +49,29 @@ const appRouter = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
+      // Instructor Routes Start form Here.
+      {
+        path: "admin",
+        element: (
+          // <AdminRoute>
+            <Sidebar/>
+          // </AdminRoute>
+        ),
+        children:[
+          {
+            path:'dashboard',
+            element:<Dashboard/>
+          },
+          {
+            path:'course',
+            element:<CourseTable/>
+          },
+          {
+            path:'course/create',
+            element:<AddCourse/>
+          }
+        ]
+      }
     ],
   },
 ]);
