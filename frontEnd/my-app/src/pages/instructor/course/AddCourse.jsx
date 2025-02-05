@@ -77,10 +77,7 @@ const AddCourse = () => {
                 <SelectItem value="meanStack">MEAN Stack</SelectItem>
                 <SelectItem value="dsa">DSA</SelectItem>
                 <SelectItem value="ai">AI</SelectItem>
-              </SelectGroup>
-             
-          
-              
+              </SelectGroup>  
             </SelectContent>
           </Select>
         </div>
