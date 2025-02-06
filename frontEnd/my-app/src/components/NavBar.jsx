@@ -23,11 +23,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 // import { Badge } from "./ui/badge";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useLogoutUserMutation } from "@/features/api/AuthApi";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
+// Images
+import Logo from "../Assets/Logo.png";
+
 
 const NavBar = () => {
   const { user } = useSelector((store) => store.auth);
@@ -47,12 +50,33 @@ const NavBar = () => {
   return (
     <div className="h-16 dark:bg-[#020817] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
       <div className="items-center justify-between hidden h-full gap-10 mx-auto max-w-7xl md:flex">
-        <div className="flex items-center gap-2">
-          <School size={"30"} />
-          <h1 className="hidden text-2xl font-extrabold md:block">
-            <Link to="/"> Ideo Learning</Link>
-          </h1>
+        <div className="flex items-center gap-20">
+          <div>
+            <h1 className="hidden text-2xl font-extrabold md:block">
+              <Link to="/">
+                <img src={Logo} alt="LOGO" className="w-10 h-10" />
+              </Link>
+            </h1>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="link" className="text-gray-600">
+              <NavLink>Home</NavLink>
+            </Button>
+            <Button variant="link" className="text-gray-600">
+              <NavLink>About us</NavLink>
+            </Button>
+            <Button variant="link" className="text-gray-600">
+              <NavLink>Courses</NavLink>
+            </Button>
+            <Button variant="link" className="text-gray-600">
+              <NavLink>Pricing</NavLink>
+            </Button>
+            <Button variant="link" className="text-gray-600">
+              <NavLink>Contact</NavLink>
+            </Button>
+          </div>
         </div>
+
         <div className="flex items-center gap-8">
           {/* user icon and dark mode icon */}
           <div>
@@ -93,7 +117,7 @@ const NavBar = () => {
                     {user.role === "instructor" || user.role === "admin" ? (
                       <>
                         <DropdownMenuItem className="cursor-pointer hover:outline-none">
-                          <span>Dashboard</span>
+                          <span><Link to="instructor">Dashboard</Link> </span>
                         </DropdownMenuItem>
                       </>
                     ) : null}
@@ -114,19 +138,20 @@ const NavBar = () => {
             ) : (
               <div className="flex items-center gap-2">
                 <Button
-                  variant="outline"
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                >
-                  Login
-                </Button>
-                <Button
+                variant="Link"
                   onClick={() => {
                     navigate("/login");
                   }}
                 >
                   Signup
+                </Button>
+                <Button
+                  className="bg-[#FF9500] hover:bg-[#FF9500] cursor-pointer"
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  Login
                 </Button>
               </div>
             )}

@@ -16,6 +16,7 @@ import Sidebar from "./pages/instructor/lecture/SideBar";
 import CourseTable from "./pages/instructor/course/CourseTable";
 import AddCourse from "./pages/instructor/course/AddCourse";
 import EditCourse from "./pages/instructor/course/EditCourse";
+import Home from "./pages/Home";
 // import { Sidebar } from "./components/ui/sidebar";
 
 const appRouter = createBrowserRouter([
@@ -27,10 +28,10 @@ const appRouter = createBrowserRouter([
         path: "/",
         element: (
           <>
-            <HomeHero/>
+          <Home/>
+            {/* <HomeHero/>
             <HeroSectionStudent />
-            {/* Course */}
-            <Courses/>
+            <Courses/> */}
           </>
         ),
       },
@@ -52,7 +53,7 @@ const appRouter = createBrowserRouter([
       },
       // Instructor Routes Start form Here.
       {
-        path: "admin",
+        path: "instructor",
         element: (
           // <AdminRoute>
             <Sidebar/>
