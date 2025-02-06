@@ -28,16 +28,18 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-
-
-
+import { useNavigate, useParams } from "react-router-dom";
+import { useEditCourseMutation } from "@/features/api/CourseApi";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const CourseTab = () => {
   const isPublished = false;
-  const isLoading = false;
   const navigator = useNavigate();
-
+  const [previewThumbnail, setPreviewThumbnail] = useState("");
+ 
+  const params = useParams();
+   const courseId = params.courseId;
   const [input, setInput] = useState({
     courseTitle: "",
     subTitle: "",
@@ -47,11 +49,54 @@ const CourseTab = () => {
     coursePrice: "",
     courseThumbnail: "",
   });
+
+  const [editCourse,{data, isLoading, isSuccess, error}] = useEditCourseMutation();
+
+
   const changeEventHandler = (e) => {
-    // e.preventDefault();
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
   };
+
+  const selectCategory = (value) => {
+    setInput({ ...input, category: value });
+  };
+  const selectCourseLevel = (value) => {
+    setInput({ ...input, categoryLevel: value });
+  };
+  // get file
+
+  const selectThumbnail = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setInput({ ...input, courseThumbnail: file });
+      const fileReader = new FileReader();
+      fileReader.onloadend = () => setPreviewThumbnail(fileReader.result);
+      fileReader.readAsDataURL(file);
+    }
+  };
+
+  const updateCourseHandler = async () => {
+    const formData = new FormData();
+    formData.append("courseTitle",input.courseTitle)
+    formData.append("subTitle",input.subTitle)
+    formData.append("description",input.description)
+    formData.append("category",input.category)
+    formData.append("courseLevel",input.courseLevel)
+    formData.append("coursePrice",input.coursePrice)
+    formData.append("courseThumbnail",input.courseThumbnail)
+    await editCourse({formData,courseId});
+  }
+
+  useEffect(()=>{
+    if(isSuccess){
+      toast.success(data.message || "Course Updated")
+    }
+    if(error){
+      toast.error(error.data.message || "Failed to Course Updated")
+    }
+  },[isSuccess,error]);
+
   return (
     <div>
       <Card>
@@ -111,7 +156,7 @@ const CourseTab = () => {
             <div className="flex items-cente gap-5">
               <div>
                 <Label>Category</Label>
-                <Select>
+                <Select onValueChange={selectCategory}>
                   <SelectTrigger className="w-[280px]">
                     <SelectValue placeholder="Choose .." />
                   </SelectTrigger>
@@ -139,7 +184,7 @@ const CourseTab = () => {
 
               <div>
                 <Label>Course Level</Label>
-                <Select>
+                <Select onValueChange={selectCourseLevel}>
                   <SelectTrigger className="w-[280px]">
                     <SelectValue placeholder="Choose Course Level" />
                   </SelectTrigger>
@@ -169,13 +214,32 @@ const CourseTab = () => {
 
             <div>
               <Label>Course Thumbnail</Label>
-              <Input type="file" accpect="image/*" className="w-fit" />
+              <Input
+                type="file"
+                accpect="image/*"
+                className="w-fit"
+                onChange={selectThumbnail}
+              />
+              {previewThumbnail && (
+              <img
+                src={previewThumbnail}
+                className="e-64 my-2"
+                alt="Course Thumbnail"
+              />
+            )}
             </div>
 
             <div className="space-x-2">
-              <Button variant="destructive" onClick={()=>{navigator('/admin/course')}}>cancel</Button>
+              <Button
+                variant="destructive"
+                onClick={() => {
+                  navigator("/instructor/course");
+                }}
+              >
+                Back
+              </Button>
 
-              <Button disabled={isLoading}>
+              <Button disabled={isLoading} onClick={()=>{updateCourseHandler()}}>
                 {isLoading ? (
                   <>
                     Please wait ...
