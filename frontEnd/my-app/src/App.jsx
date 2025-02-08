@@ -1,22 +1,27 @@
-import React from "react";
+// import React from "react";
 // import { Button } from "@/components/ui/button";
 import Login from "./pages/Login";
 // import NavBar from "./components/NavBar";
 
-import HeroSectionStudent from "./pages/student/HeroSectionStudent";
+// import HeroSectionStudent from "./pages/student/HeroSectionStudent";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
-import Courses from "./pages/student/Courses";
+// import Courses from "./pages/student/Courses";
 import MyLearning from "./pages/student/MyLearning";
 import Profile from "./pages/student/Profile";
 import Major from "./pages/Major";
-import HomeHero from "./components/HomeHero";
+// import HomeHero from "./components/HomeHero";
 import Dashboard from "./pages/instructor/Dashboard";
-import Sidebar from "./pages/instructor/lecture/SideBar";
+import Sidebar from "./pages/instructor/SideBar";
 import CourseTable from "./pages/instructor/course/CourseTable";
 import AddCourse from "./pages/instructor/course/AddCourse";
 import EditCourse from "./pages/instructor/course/EditCourse";
 import Home from "./pages/Home";
+import AllCoursesPage from "./pages/AllCoursesPage";
+import PricingPage from "./pages/PricingPage";
+import ContactPage from "./pages/ContactPage";
+import AboutPage from "./pages/AboutPage";
+import CreateLecture from "./pages/instructor/lecture/CreateLecture";
 // import { Sidebar } from "./components/ui/sidebar";
 
 const appRouter = createBrowserRouter([
@@ -34,6 +39,22 @@ const appRouter = createBrowserRouter([
             <Courses/> */}
           </>
         ),
+      },
+      {
+        path: "/about",
+        element: <AboutPage />,
+      },
+      {
+        path: "/all-courses",
+        element: <AllCoursesPage />,
+      },
+      {
+        path: "/pricing",
+        element: <PricingPage />,
+      },
+      {
+        path: "/contact",
+        element: <ContactPage />,
       },
       {
         path: "my-learning",
@@ -76,6 +97,10 @@ const appRouter = createBrowserRouter([
             path:'course/:courseId',
             element:<EditCourse/>
           },
+          {
+            path:'course/:courseId/lecture/',
+            element:<CreateLecture/>
+          }
         ]
       }
     ],

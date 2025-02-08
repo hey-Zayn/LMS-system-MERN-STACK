@@ -1,5 +1,6 @@
-const { findByIdAndUpdate } = require("../models/course.model");
+// const { findByIdAndUpdate } = require("../models/course.model");
 const Course = require("../models/course.model");
+const Lecture = require("../models/lecture.model");
 const {
   deleteMediaFromCloudinary,
   uploadMedia,
@@ -106,4 +107,90 @@ const editCourse = async (req, res) => {
   }
 };
 
-module.exports = { createCourse, getCreatorCourses, editCourse };
+
+const getCourseById = async(req,res)=>{
+  try {
+    const {courseId} = req.params;
+
+    const course = await Course.findById(courseId);
+
+    if(!course){
+        return res.status(404).json({
+            message:"Course not found!"
+        })
+    }
+    return res.status(200).json({
+        course
+    })
+} catch (error) {
+    console.log(error);
+    return res.status(500).json({
+        message:"Failed to get course by id"
+    })
+}
+};
+
+const createLecture = async(req,res)=>{
+  try {
+    const {lectureTitle} = req.body;
+    const {courseId} = req.params;
+
+    if(!lectureTitle || !courseId){
+        return res.status(400).json({
+            message:"Lecture title is required"
+        })
+    };
+
+    // Check if course exists first
+    const course = await Course.findById(courseId);
+    if(!course){
+        return res.status(404).json({
+            message: "Course not found"
+        });
+    }
+
+    // create lecture
+    const lecture = await Lecture.create({lectureTitle});
+
+    // Add lecture to course
+    course.lectures.push(lecture._id);
+    await course.save();
+
+    return res.status(201).json({
+        lecture,
+        message:"Lecture created successfully."
+    });
+
+} catch (error) {
+   console.log(error)
+    return res.status(500).json({
+        message:"Failed to create lecture",
+        error:error.message
+    })
+}
+};
+
+const getCourseLectures = async(req,res)=>{
+  try {
+    const {courseId} = req.params;
+    const course = await Course.findById(courseId).populate("lectures");
+    if(!course){
+        return res.status(404).json({
+            message:"Course not found"
+        })
+    }
+    return res.status(200).json({
+        lectures:course.lectures,
+        message:"Lectures fetched successfully"
+    });
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({message:"Failed to get Lecture"})    
+
+  }
+
+
+};
+
+module.exports = { createCourse, getCreatorCourses, editCourse, getCourseById, createLecture, getCourseLectures };
