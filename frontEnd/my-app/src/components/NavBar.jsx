@@ -31,7 +31,6 @@ import { useSelector } from "react-redux";
 // Images
 import Logo from "../Assets/Logo.png";
 
-
 const NavBar = () => {
   const { user } = useSelector((store) => store.auth);
 
@@ -117,7 +116,9 @@ const NavBar = () => {
                     {user.role === "instructor" || user.role === "admin" ? (
                       <>
                         <DropdownMenuItem className="cursor-pointer hover:outline-none">
-                          <span><Link to="instructor">Dashboard</Link> </span>
+                          <span>
+                            <Link to="instructor">Dashboard</Link>{" "}
+                          </span>
                         </DropdownMenuItem>
                       </>
                     ) : null}
@@ -138,7 +139,7 @@ const NavBar = () => {
             ) : (
               <div className="flex items-center gap-2">
                 <Button
-                variant="Link"
+                  variant="Link"
                   onClick={() => {
                     navigate("/login");
                   }}
@@ -161,7 +162,9 @@ const NavBar = () => {
       </div>
       {/* Mobile Nav bar */}
       <div className="flex items-center justify-between w-full h-full px-4 md:hidden">
-        <h1 className="text-2xl font-extrabold">Lincoln</h1>
+        <Link to="/">
+          <img src={Logo} alt="LOGO" className="w-10 h-10" />
+        </Link>
         <MobileNavbar />
       </div>
     </div>
@@ -170,10 +173,13 @@ const NavBar = () => {
 
 export default NavBar;
 
+//  -------------- Mobile
+
 const MobileNavbar = () => {
   const [LogoutUser, { data, isSuccess }] = useLogoutUserMutation();
   const navigate = useNavigate();
-
+  // const { user } = useSelector((store) => store.auth);
+  const role = true;
   const logoutHandler = async () => {
     await LogoutUser();
   };
@@ -184,7 +190,6 @@ const MobileNavbar = () => {
     }
   }, [isSuccess]);
 
-  const role = "admin";
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -198,23 +203,41 @@ const MobileNavbar = () => {
       </SheetTrigger>
       <SheetContent className="flex flex-col pt-10">
         <SheetHeader className="flex flex-row items-center justify-between w-full">
-          <SheetTitle className="text-2xl font-bold">LINCOLN</SheetTitle>
+          <SheetTitle className="text-2xl font-bold">Menu</SheetTitle>
           <DarkMode />
         </SheetHeader>
         <Separator className="w-full mr-2 h-[2px] bg-gray-200" />
         <nav className="flex flex-col">
           <div className="flex flex-col gap-2 font-semibold cursor-pointer">
             <span>
+              <Link to="/">Home</Link>
+            </span>
+            <span>
+              <Link to="/about">About Us</Link>
+            </span>
+            <span>
+              <Link to="/all-courses">Courses</Link>
+            </span>
+            <span>
+              <Link to="/pricing">Pricing</Link>
+            </span>
+            <span>
+              <Link to="/contact">Contact</Link>
+            </span>
+          </div>
+          <Separator className="w-full mr-2 h-[2px] bg-gray-200" />
+          <div className="flex flex-col gap-2 font-semibold cursor-pointer">
+            <span>
               <Link to="my-learning">My Learning</Link>
             </span>
             <span>
-              {" "}
-              <Link to="profile">Profile</Link>{" "}
+              <Link to="profile">Profile</Link>
             </span>
           </div>
+          
+          <Separator className="w-full mr-2 h-[2px] bg-gray-200" />
           <div className="flex flex-col mt-4">
             <Button variant="destructive">
-              {" "}
               <span onClick={logoutHandler}>Logout</span>
             </Button>
           </div>
