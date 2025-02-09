@@ -15,8 +15,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
-import { useEditLectureMutation } from "@/features/api/CourseApi";
-import { useParams } from "react-router-dom";
+import {
+  useEditLectureMutation,
+  useGetLectureByIdQuery,
+  useRemoveLectureMutation,
+} from "@/features/api/CourseApi";
+import { useNavigate, useParams } from "react-router-dom";
 // import { Pencil } from "lucide-react"
 const MEDIA_API = "http://localhost:8080/api/v1/media";
 
@@ -27,61 +31,75 @@ const LectureTab = () => {
   const [mediaProgress, setMediaProgress] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [btnDisabled, setBtnDisabled] = useState(true);
-    
-  const {lectureId,courseId} = useParams();
 
-  const[editLecture,{data, isLoading, error, isSuccess}] = useEditLectureMutation();
+  const { lectureId, courseId } = useParams();
+  const navigate = useNavigate();
+  const [editLecture, { data, isLoading, error, isSuccess }] =
+    useEditLectureMutation();
 
-//   const editLectureHandler = async()=>{
-//     if(!lectureTitle || !uploadVideoInfo){
-//       toast.error("Please fill all the fields");
-//       return;
-//     }
-//     if(isFree){
-//       toast.error("Please select if the lecture is free or not");
-//       return;
-//     }
+  const [
+    removeLecture,
+    {
+      data: removeData,
+      isLoading: removeLoading,
+      error: removeError,
+      isSuccess: removeSuccess,
+    },
+  ] = useRemoveLectureMutation();
 
-//     await editlecture({
-//       lectureId,
-//       courseId,
-//       lectureTitle,
-//       videoInfo:uploadVideoInfo,
-//       isPreviewFree:isFree,
+  const {data:lectureData} = useGetLectureByIdQuery({lectureId});
+  const lecture = lectureData?.lecture;
+
+  useEffect(()=>{
+    if(lecture){
+      setLectureTitle(lecture.lectureTitle);
+      setIsFree(lecture.isPreviewFree);
+      setUploadVideoInfo(lecture.videoInfo)
+    }
+  },[lecture])
 
 
-//     });
-//   }
-const editLectureHandler = async () => {
+  const editLectureHandler = async () => {
     console.log({ lectureTitle, uploadVideoInfo, isFree, courseId, lectureId });
-
 
     await editLecture({
       lectureTitle,
-      videoInfo:uploadVideoInfo,
-      isPreviewFree:isFree,
+      videoInfo: uploadVideoInfo,
+      isPreviewFree: isFree,
       courseId,
       lectureId,
     });
-
-
   };
 
-  useEffect(()=>{
-    if(isSuccess){
-      toast.success("Lecture updated successfully");
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(data.message);
     }
-    if(error){
-      toast.error("Lecture update failed");
+
+    if (error) {
+      toast.error(error.data.message);
     }
-  },[isSuccess,error]);
-//   
+  }, [isSuccess, error, data, navigate]);
+
+  const removeLectureHandler = async () => {
+    await removeLecture({ lectureId });
+  };
+
+  useEffect(() => {
+    if (removeSuccess) {
+      navigate(`/instructor/course/${courseId}/lecture`);
+      toast.success(removeData.message);
+    }
+    if (removeError) {
+      toast.error(removeError.data.message);
+    }
+  }, [removeSuccess, removeError, navigate, removeData, courseId]);
+
+  //
+
   const fileChangeHandler = async (e) => {
-
-
     const file = e.target.files[0];
     if (file) {
-
       const formData = new FormData();
       formData.append("file", file);
       setMediaProgress(true);
@@ -110,7 +128,6 @@ const editLectureHandler = async () => {
     }
   };
 
-
   return (
     <Card>
       <CardHeader className="flex justify-between">
@@ -119,7 +136,9 @@ const editLectureHandler = async () => {
           <CardDescription>Make changes to the lecture details</CardDescription>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="destructive">Remove Lecture</Button>
+          <Button variant="destructive" onClick={removeLectureHandler}>
+            Remove Lecture
+          </Button>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -154,13 +173,17 @@ const editLectureHandler = async () => {
         </div>
         {/* <Progress value={uploadProgress} /> */}
         {mediaProgress && (
-          <div className="my-4">
-            <Progress value={uploadProgress} />
-            <p>{uploadProgress}% uploaded</p>
+          <div className="my-4 space-y-2">
+            <Progress value={uploadProgress} className="h-2" />
+            <p className="text-sm text-muted-foreground">
+              Uploading video... {uploadProgress}% complete
+            </p>
           </div>
         )}
         <div>
-          <Button className="cursor-pointer mt-4" onClick={editLectureHandler}>Save Changes</Button>
+          <Button className="cursor-pointer mt-4" onClick={editLectureHandler}>
+            Save Changes
+          </Button>
         </div>
       </CardContent>
     </Card>
