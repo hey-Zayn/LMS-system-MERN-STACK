@@ -10,8 +10,9 @@ router.put('/:courseId',isAuthenticated, upload.single("courseThumbnail"), editC
 router.get('/:courseId',isAuthenticated,  getCourseById);
 router.post('/:courseId/lecture',isAuthenticated, createLecture);
 router.get('/:courseId/lecture',isAuthenticated, getCourseLectures);
-router.post('/:courseId/lecture/:lectureId',isAuthenticated, editLecture);
+router.put('/:courseId/lecture/:lectureId',isAuthenticated, editLecture);
 router.delete('/lecture/:lectureId',isAuthenticated, removeLecture);
-router.get('/lecture/:lectureId',isAuthenticated, getLectureById);
+router.route("/lecture/:lectureId").get(isAuthenticated, getLectureById);
+
 
 module.exports = router;
