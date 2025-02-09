@@ -14,7 +14,7 @@ const genrateToekn = async (res, user, message) => {
     .cookie("token", token, {
       httpOnly: true,
       sameSite: "strict",
-      maxAge: 24 * 60 * 60 * 1000, //1Day
+      maxAge: 24 * 60 * 60 * 1000, // 1-Day
     }).json({
         success: true,
         message,

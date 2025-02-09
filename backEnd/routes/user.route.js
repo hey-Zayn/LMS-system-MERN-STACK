@@ -10,11 +10,4 @@ router.get('/logout',Logout);
 router.get('/profile', isAuthenticated ,getUserProfile);
 router.put('/profile/update', isAuthenticated, upload.single("profilePhoto") ,updateProfile);
 
-// router.route("/register").post(Register);
-// router.route("/login").post(Login);
-// router.route("/logout").get(Logout);
-// router.route("/profile").get(isAuthenticated, getUserProfile);
-// router.route("/profile/update").put(isAuthenticated, upload.single("profilePhoto"), updateProfile);
-
-
 module.exports = router;

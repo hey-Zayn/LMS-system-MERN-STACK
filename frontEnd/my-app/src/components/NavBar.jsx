@@ -1,5 +1,4 @@
-import { Menu, School } from "lucide-react";
-import React from "react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -22,14 +21,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-// import { Badge } from "./ui/badge";
+
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useLogoutUserMutation } from "@/features/api/AuthApi";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
-// Images
-import Logo from "../Assets/Logo.png";
+
+// import Logo from "../Assets/Logo.png";
 
 const NavBar = () => {
   const { user } = useSelector((store) => store.auth);
@@ -53,25 +52,28 @@ const NavBar = () => {
           <div>
             <h1 className="hidden text-2xl font-extrabold md:block">
               <Link to="/">
-                <img src={Logo} alt="LOGO" className="w-10 h-10" />
+                {/* <img src={Logo} alt="LOGO" className="w-10 h-10" /> */}
+                Logo
               </Link>
             </h1>
           </div>
           <div className="flex gap-2">
             <Button variant="link" className="text-gray-600">
-              <NavLink>Home</NavLink>
+              <NavLink to="/">Home</NavLink>
             </Button>
             <Button variant="link" className="text-gray-600">
-              <NavLink>About us</NavLink>
+              <NavLink to="/about">About us</NavLink>
             </Button>
             <Button variant="link" className="text-gray-600">
-              <NavLink>Courses</NavLink>
+              <NavLink to="/all-courses">Courses</NavLink>
+            </Button>
+
+            <Button variant="link" className="text-gray-600">
+              <NavLink to="/pricing">Pricing</NavLink>
             </Button>
             <Button variant="link" className="text-gray-600">
-              <NavLink>Pricing</NavLink>
-            </Button>
-            <Button variant="link" className="text-gray-600">
-              <NavLink>Contact</NavLink>
+              <NavLink to="/contact">Contact</NavLink>
+
             </Button>
           </div>
         </div>
@@ -163,7 +165,8 @@ const NavBar = () => {
       {/* Mobile Nav bar */}
       <div className="flex items-center justify-between w-full h-full px-4 md:hidden">
         <Link to="/">
-          <img src={Logo} alt="LOGO" className="w-10 h-10" />
+          {/* <img src={Logo} alt="LOGO" className="w-10 h-10" /> */}
+          Logo
         </Link>
         <MobileNavbar />
       </div>

@@ -53,11 +53,21 @@ export const courseApi = createApi({
         }),
         providesTags:["Refetch_Creator_Course"]
     }),
+    editLecture: builder.mutation({
+        query:({lectureId,courseId,lectureTitle,videoInfo,isPreviewFree})=>({
+          url:`/${courseId}/lecture/${lectureId}`,
+          method:"PUT",
+          body:{lectureTitle,videoInfo,isPreviewFree}
+        }),
+        invalidatesTags:["Refetch_Creator_Course"]
 
+    }), 
+    
 
 
   }),
 
 });
 
-export const { useCreateCourseMutation, useGetCreatorCourseQuery, useEditCourseMutation, useGetCourseByIdQuery, useCreateLectureMutation, useGetCourseLecturesQuery } = courseApi;
+export const { useCreateCourseMutation, useGetCreatorCourseQuery, useEditCourseMutation, 
+  useGetCourseByIdQuery, useCreateLectureMutation, useGetCourseLecturesQuery, useEditLectureMutation  } = courseApi;

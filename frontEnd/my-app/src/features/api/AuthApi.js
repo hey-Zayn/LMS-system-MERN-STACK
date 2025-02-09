@@ -1,4 +1,3 @@
-// C:\Users\Admin\Desktop\LMS\frontEnd\my-app\src\features\api\AuthApi.js
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userLoggesIn, userLoggesOut } from "../authSlice";
 
@@ -41,11 +40,12 @@ export const authApi = createApi({
       }),
       async onQueryStarted(_, { queryFulfilled , dispatch }) {
         try {
-          // const result = await queryFulfilled;
+          const result = await queryFulfilled
           dispatch(userLoggesOut());
         } catch (error) {
           console.log(`${error} : Error`);
         }
+
       },
     }),
 

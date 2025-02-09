@@ -22,6 +22,7 @@ import PricingPage from "./pages/PricingPage";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import CreateLecture from "./pages/instructor/lecture/CreateLecture";
+import EditLecture from "./pages/instructor/lecture/EditLecture";
 // import { Sidebar } from "./components/ui/sidebar";
 
 const appRouter = createBrowserRouter([
@@ -100,7 +101,11 @@ const appRouter = createBrowserRouter([
           {
             path:'course/:courseId/lecture/',
             element:<CreateLecture/>
-          }
+          },
+          {
+            path:'course/:courseId/lecture/:lectureId',
+            element:<EditLecture/>
+          },
         ]
       }
     ],
