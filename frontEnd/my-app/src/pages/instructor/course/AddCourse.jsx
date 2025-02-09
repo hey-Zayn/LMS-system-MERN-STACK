@@ -1,6 +1,5 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React from "react";
 import {
   Select,
   SelectContent,
@@ -37,15 +36,16 @@ const AddCourse = () => {
       toast.success(data.message || "Course Created.");
       navigate("../course");
     }
-  },[isSuccess,error])
+  },[isSuccess,error,data,navigate])
   return (
     <div className="flex-1 mx-10">
       <div className="mb-4">
         <h1 className="font-bold text-xl">
-          Let's add course, add some basic couse details for your new course.
+          Let&apos;s add course, add some basic couse details for your new course.
         </h1>
         <p className="text-sm">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore,
+
           minima.
         </p>
       </div>

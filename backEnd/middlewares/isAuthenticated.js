@@ -21,7 +21,6 @@ const isAuthenticated = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
-    // Add a response here for better error handling:
     return res.status(500).json({ 
       message: "Internal server error", 
       success: false 

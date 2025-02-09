@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React from "react";
 import { useState } from "react";
 import {
   Select,
@@ -21,14 +20,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  ArrowUp,
   ArrowUpFromLine,
   EyeOff,
   Loader2,
   Trash2,
-  X,
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import { useEditCourseMutation, useGetCourseByIdQuery } from "@/features/api/CourseApi";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -118,7 +116,7 @@ const CourseTab = () => {
     if(error){
       toast.error(error.data.message || "Failed to Course Updated")
     }
-  },[isSuccess,error]);
+  },[isSuccess,error,data,]);
 
 
   if(courseByIdLoading) return <h1>Loading...</h1>

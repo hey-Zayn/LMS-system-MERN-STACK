@@ -1,10 +1,13 @@
-import React from 'react'
+import AboutContent from "@/components/Simple/AboutContent"
+import AboutHero from "@/components/Simple/AboutHero"
+
 
 const AboutPage = () => {
   return (
-    <div>
-      About us
-    </div>
+    <>
+     <AboutHero/>
+     <AboutContent/>
+    </>
   )
 }
 

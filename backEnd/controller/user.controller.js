@@ -1,4 +1,3 @@
-// C:\Users\Admin\Desktop\LMS\backEnd\controller\user.controller.js
 const User = require("../models/user.model.js");
 const bcrypt = require("bcrypt");
 const genrateToekn = require("../utils/genrateToekn");

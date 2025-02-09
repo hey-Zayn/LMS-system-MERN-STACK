@@ -12,12 +12,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import Course from "./Course";
-import {
-  useLoadUserQuery,
-  useUpdateUserMutation,
-} from "@/features/api/authApi";
+
+import { useLoadUserQuery, useUpdateUserMutation } from "@/features/api/AuthApi";
 import { toast } from "sonner";
 
 const Profile = () => {
@@ -119,10 +117,11 @@ const Profile = () => {
               <DialogHeader>
                 <DialogTitle>Edit Profile</DialogTitle>
                 <DialogDescription>
-                  Make changes to your profile here. Click save when you're
+                  Make changes to your profile here. Click save when you&apos;re
                   done.
                 </DialogDescription>
               </DialogHeader>
+
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label>Name</Label>
@@ -164,15 +163,16 @@ const Profile = () => {
         </div>
       </div>
       <div>
-        <h1 className="font-medium text-lg">Courses you're enrolled in</h1>
+        <h1 className="font-medium text-lg">Courses you&apos;re enrolled in</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-5">
           {user.enrolledCourses.length === 0 ? (
-            <h1>You haven't enrolled yet</h1>
+            <h1>You haven&apos;t enrolled yet</h1>
           ) : (
             user.enrolledCourses.map((course) => (
               <Course course={course} key={course._id} />
             ))
           )}
+
         </div>
       </div>
     </div>

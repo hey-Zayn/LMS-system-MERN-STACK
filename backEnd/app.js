@@ -5,8 +5,10 @@ const app = express();
 const cors = require("cors");
 const userRouter = require("./routes/user.route");
 const courseRouter = require("./routes/course.route");
+const mediaRouter = require("./routes/media.route");
 const cookieparser = require("cookie-parser");
 require("dotenv").config();
+
 
 const port = process.env.PORT;
 
@@ -23,6 +25,7 @@ app.use(cors({
 app.use(express.json());
 app.use('/api/v1/user',userRouter);
 app.use('/api/v1/course',courseRouter);
+app.use('/api/v1/media',mediaRouter);
 
 app.use("/",(req,res)=>{
     res.send("Hello");
