@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useEditCourseMutation, useGetCourseByIdQuery } from "@/features/api/CourseApi";
+import { useEditCourseMutation, useGetCourseByIdQuery, usePublishCourseMutation } from "@/features/api/CourseApi";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
@@ -46,9 +46,10 @@ const CourseTab = () => {
   });
   const params = useParams();
   const courseId = params.courseId;
-  const {data:courseByIdData, isLoading:courseByIdLoading} = useGetCourseByIdQuery(courseId);
+  const {data:courseByIdData, isLoading:courseByIdLoading, refetch} = useGetCourseByIdQuery(courseId);
  
-  const isPublished = false;
+  // const isPublished = false;
+  const [publishCourse, {isLoading:publishLoading, isSuccess:publishSuccess, error:publishError}] = usePublishCourseMutation();
   // const course = courseByIdData?.course;
   useEffect(() => { 
     if (courseByIdData?.course) { 
@@ -109,9 +110,26 @@ const CourseTab = () => {
     await editCourse({ formData, courseId });
   };
 
+  const publishStatusHandler = async (action) => {
+    try {
+      const response = await publishCourse({ courseId, query:action });
+      if(response.data){
+        refetch();
+        toast.success(response.data.message || "Course Updated")
+      }
+    } catch (error) {
+      toast.error(error.data.message || "Failed to Course Updated")
+    }
+
+
+
+  }
+
+
   useEffect(()=>{
     if(isSuccess){
       toast.success(data.message || "Course Updated")
+
     }
     if(error){
       toast.error(error.data.message || "Failed to Course Updated")
@@ -132,8 +150,8 @@ const CourseTab = () => {
             </CardDescription>
           </div>
           <div className="space-x-2">
-            <Button variant="outline">
-              {isPublished ? (
+            <Button variant="outline" disabled={courseByIdData?.course.lectures.length === 0} onClick={()=>{publishStatusHandler(courseByIdData?.course.isPublished? "false" : "true")}}>
+              {courseByIdData?.course.isPublished ? (
                 <>
                   UnPublished
                   <EyeOff />

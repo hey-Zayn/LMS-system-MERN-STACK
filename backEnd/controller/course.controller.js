@@ -278,10 +278,40 @@ const getLectureById = async (req,res) => {
             message:"Failed to get lecture by id"
         })
     }
+};
+
+// Publish unpublish course logic
+const publishCourse = async (req,res) => {
+  try {
+       const {courseId} = req.params;
+       const {publish} = req.query; // true or false
+       const course = await Course.findById(courseId);
+       if(!course){
+        return res.status(404).json({
+          message:"Course not found"
+        })
+       }
+      //  publish status based on publish query
+       course.isPublished = publish === "true";
+       await course.save();
+       const status = publish === "true" ? "published" : "unpublished";
+       return res.status(200).json({
+        course,
+        message:`Course ${status} successfully`
+       });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+
+      message:"Failed to update course status"
+    })
+  }
 }
+
 
 
 module.exports = {
   createCourse, getCreatorCourses, editCourse, getCourseById, createLecture, getCourseLectures,
-  editLecture, removeLecture, getLectureById
+  editLecture, removeLecture, getLectureById, publishCourse
 };
