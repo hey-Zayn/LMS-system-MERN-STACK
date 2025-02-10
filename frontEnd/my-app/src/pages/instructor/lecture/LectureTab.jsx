@@ -167,8 +167,8 @@ const LectureTab = () => {
         </div>
         <div className="flex items-center space-x-2 my-5">
           <div className="flex items-center space-x-2">
-            <Switch id="airplane-mode" />
-            <Label htmlFor="airplane-mode">Is this a paid lecture?</Label>
+            <Switch checked={isFree} onCheckedChange={() => setIsFree(!isFree)} id="airplane-mode" />
+            <Label htmlFor="airplane-mode">Is this a Free lecture?</Label>
           </div>
         </div>
         {/* <Progress value={uploadProgress} /> */}

@@ -1,19 +1,27 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import React from "react";
+import CardLectureDashboard from "@/components/Simple/CardLectureDashboard";
+import TopBarDashboard from "@/components/Simple/TopBarDashboard";
+
+// import React from "react";
+
 
 const Dashboard = () => {
   return (
     <>
-      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt20">
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              Total Sales
-            </CardTitle>
-          </CardHeader>
-        </Card>
+      <div>
+      <TopBarDashboard />
+      <div className="w-full flex flex-col md:flex-row lg:flex-row gap-4">
+        <CardLectureDashboard />
       </div>
+      </div>
+     {/*  */}
+
+
+
+
+
     </>
+
+
   );
 };
 

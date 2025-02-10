@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const isAuthenticated = require("../middlewares/isAuthenticated");
-const { createCourse, getCreatorCourses, editCourse, getCourseById, createLecture, getCourseLectures, editLecture, getLectureById, removeLecture } = require("../controller/course.controller");
+const { createCourse, getCreatorCourses, editCourse, getCourseById, createLecture, getCourseLectures, editLecture, getLectureById, removeLecture, publishCourse } = require("../controller/course.controller");
 const upload =  require("../utils/multer");
 
 router.post('/',isAuthenticated,createCourse);
@@ -13,6 +13,6 @@ router.get('/:courseId/lecture',isAuthenticated, getCourseLectures);
 router.put('/:courseId/lecture/:lectureId',isAuthenticated, editLecture);
 router.delete('/lecture/:lectureId',isAuthenticated, removeLecture);
 router.route("/lecture/:lectureId").get(isAuthenticated, getLectureById);
-
+router.patch('/:courseId',isAuthenticated, publishCourse);
 
 module.exports = router;
