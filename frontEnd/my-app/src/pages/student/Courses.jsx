@@ -1,9 +1,16 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import Course from "./Course";
+import { useGetPublishedCoursesQuery } from "@/features/api/CourseApi";
 
 const Courses = () => {
-  const isLoading = false;
-  const courses = [1,2,3,4,5,6,7,8];
+  const {data,isLoading, isSuccess, isError} = useGetPublishedCoursesQuery();
+  console.log(data);
+ 
+  if(isError){
+    return <h1>Something went wrong</h1>
+  }
+  // const isLoading = false;
+  // const courses = [1,2,3,4,5,6,7,8];
   return (
     <div className="bg-gray-50">
       <div className="max-w-7xl m-auto p-6">
@@ -14,7 +21,7 @@ const Courses = () => {
               <CourseSkeleton key={index} />
             ))
           ) : (
-            courses.map((course)=>{
+            data?.courses && data.courses.map((course)=>{
               return(<Course key={course.id} course={course} />)
             })
           )}
@@ -27,6 +34,7 @@ const Courses = () => {
 export default Courses;
 
 const CourseSkeleton = () => {
+ 
   return (
     <div className="bg-white shadow-md hover:shadow-lg transition-shadow rounded-lg overflow-hidden">
       <Skeleton className="w-full h-36" />
