@@ -1,4 +1,4 @@
-import { Menu } from "lucide-react";
+import { Bell, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -27,10 +27,42 @@ import { useLogoutUserMutation } from "@/features/api/AuthApi";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 // import Logo from "../Assets/Logo.png";
 
 const NavBar = () => {
+  // GSAP Animation
+  const timeline = gsap.timeline({
+    duration: 0.5,
+  });
+  useGSAP(() => {
+    timeline.from("#Logo", {
+      opacity: 0,
+      y: -50,
+    }),
+      timeline.from("#navLink", {
+        opacity: 0,
+        y: -50,
+      });
+
+    timeline.from("#user", {
+      opacity: 0,
+      y: -50,
+    });
+
+    timeline.from("#bell", {
+      opacity: 0,
+      x: 50,
+    });
+
+    timeline.from("#darkMode", {
+      opacity: 0,
+      x: -50,
+    });
+  });
+
   const { user } = useSelector((store) => store.auth);
 
   const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
@@ -46,51 +78,130 @@ const NavBar = () => {
     }
   }, [isSuccess]);
   return (
-    <div className="h-16 dark:bg-[#020817] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
-      <div className="items-center justify-between hidden h-full gap-10 mx-auto max-w-7xl md:flex">
+    <div className="h-16 dark:bg-[#020817] bg-white/10 backdrop-blur-md  dark:border-b-gray-800  fixed top-0 left-0 right-0 duration-300 z-50 ">
+      <div className="navbar items-center justify-between hidden h-full gap-10 mx-auto max-w-7xl md:flex">
         <div className="flex items-center gap-20">
           <div>
-            <h1 className="hidden text-2xl font-extrabold md:block">
+            <h1 id="Logo" className="hidden text-xl font-extrabold md:block">
               <Link to="/">
                 {/* <img src={Logo} alt="LOGO" className="w-10 h-10" /> */}
-                Logo
+                CHISMOSA
               </Link>
             </h1>
           </div>
-          <div className="flex gap-2">
-            <Button variant="link" className="text-gray-600">
-              <NavLink to="/">Home</NavLink>
-            </Button>
-            <Button variant="link" className="text-gray-600">
-              <NavLink to="/about">About us</NavLink>
-            </Button>
-            <Button variant="link" className="text-gray-600">
-              <NavLink to="/all-courses">Courses</NavLink>
-            </Button>
 
-            <Button variant="link" className="text-gray-600">
-              <NavLink to="/pricing">Pricing</NavLink>
-            </Button>
-            <Button variant="link" className="text-gray-600">
-              <NavLink to="/contact">Contact</NavLink>
 
-            </Button>
+        </div>
+
+        <div>
+          <div className="flex gap-10" id="navLink">
+            <button>
+              <NavLink to="/" className={({ isActive }) =>
+                `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
+                }`
+              }
+              >
+                {({ isActive }) => (
+                  <>
+                    {isActive && (
+                      <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
+                    )}
+                    Home
+                  </>
+                )}
+              </NavLink>
+            </button>
+
+            <button>
+              <NavLink to="/about" className={({ isActive }) =>
+                `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
+                }`
+              }
+              >
+                {({ isActive }) => (
+                  <>
+                    {isActive && (
+                      <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
+                    )}
+                    About us
+                  </>
+                )}
+              </NavLink>
+            </button>
+
+            <button>
+              <NavLink to="/all-courses" className={({ isActive }) =>
+                `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
+                }`
+              }
+              >
+                {({ isActive }) => (
+                  <>
+                    {isActive && (
+                      <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
+                    )}
+                    Courses
+                  </>
+                )}
+              </NavLink>
+            </button>
+
+            <button>
+              <NavLink to="/pricing" className={({ isActive }) =>
+                `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
+                }`
+              }
+              >
+                {({ isActive }) => (
+                  <>
+                    {isActive && (
+                      <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
+                    )}
+                    Pricing
+                  </>
+                )}
+              </NavLink>
+            </button>
+
+            <button>
+              <NavLink to="/contact" className={({ isActive }) =>
+                `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
+                }`
+              }
+              >
+                {({ isActive }) => (
+                  <>
+                    {isActive && (
+                      <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
+                    )}
+                    Contact
+                  </>
+                )}
+              </NavLink>
+            </button>
+
+
+
           </div>
         </div>
 
         <div className="flex items-center gap-8">
           {/* user icon and dark mode icon */}
-          <div>
+          
+
+          <div id="user">
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Avatar className="">
+                  <Avatar className="h-10 w-10 overflow-hidden">
                     <AvatarImage
                       src={user?.photoUrl || "https://github.com/shadcn.png"}
                       alt="@shadcn"
-                      className="w-[35px] rounded-full overflow-hidden cursor-pointer"
+                      className="h-10 w-10 object-cover rounded-full cursor-pointer"
                     />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback className="h-full w-full flex items-center justify-center bg-gray-200 text-gray-700 font-medium rounded-full">
+                      CN
+                    </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
 
@@ -159,9 +270,13 @@ const NavBar = () => {
               </div>
             )}
           </div>
-          <DarkMode />
+          <div id="darkMode">
+            <DarkMode />
+          </div>
         </div>
+
       </div>
+
       {/* Mobile Nav bar */}
       <div className="flex items-center justify-between w-full h-full px-4 md:hidden">
         <Link to="/">
@@ -237,7 +352,7 @@ const MobileNavbar = () => {
               <Link to="profile">Profile</Link>
             </span>
           </div>
-          
+
           <Separator className="w-full mr-2 h-[2px] bg-gray-200" />
           <div className="flex flex-col mt-4">
             <Button variant="destructive">

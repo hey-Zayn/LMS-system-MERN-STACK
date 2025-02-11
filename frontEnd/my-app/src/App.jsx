@@ -23,6 +23,7 @@ import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import CreateLecture from "./pages/instructor/lecture/CreateLecture";
 import EditLecture from "./pages/instructor/lecture/EditLecture";
+import CourseDetails from "./pages/student/CourseDetails";
 // import { Sidebar } from "./components/ui/sidebar";
 
 const appRouter = createBrowserRouter([
@@ -72,6 +73,10 @@ const appRouter = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "course-detail/:courseId",
+        element: <CourseDetails />,
       },
       // Instructor Routes Start form Here.
       {
