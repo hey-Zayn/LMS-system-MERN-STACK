@@ -1,4 +1,5 @@
-import { Bell, Menu } from "lucide-react";
+
+import {  Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -24,43 +25,60 @@ import {
 
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useLogoutUserMutation } from "@/features/api/AuthApi";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 // import Logo from "../Assets/Logo.png";
 
 const NavBar = () => {
+  // const navbarRef = useRef(null);
+  useEffect(() => {
+    // GSAP animation for navbar width and position change
+    gsap.to("#navbar", {
+      width: "75%",
+      borderRadius: "50px",
+      padding: "0 20px",
+      top: "2%",
+      left: "50%", 
+      xPercent: -50,
+      ease: "power2.inOut",
+      duration: 0.5,
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "+=100",
+        scrub: true,
+      },
+    });
+  }, []);
+  useEffect(() => {
+    // GSAP animation for navbar width and position change
+    gsap.to("#Logo", {
+      display: "none",
+      duration: 0.5,
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "+=100",
+        scrub: true,
+      },
+    });
+  }, []);
   // GSAP Animation
   const timeline = gsap.timeline({
-    duration: 0.5,
+    duration: 1,
   });
   useGSAP(() => {
-    timeline.from("#Logo", {
+    timeline.from("#navbar", {
       opacity: 0,
-      y: -50,
-    }),
-      timeline.from("#navLink", {
-        opacity: 0,
-        y: -50,
-      });
+      ease: "power2.inOut",
+      y: -200,
 
-    timeline.from("#user", {
-      opacity: 0,
-      y: -50,
-    });
-
-    timeline.from("#bell", {
-      opacity: 0,
-      x: 50,
-    });
-
-    timeline.from("#darkMode", {
-      opacity: 0,
-      x: -50,
-    });
+    })
   });
 
   const { user } = useSelector((store) => store.auth);
@@ -78,212 +96,221 @@ const NavBar = () => {
     }
   }, [isSuccess]);
   return (
-    <div className="h-16 dark:bg-[#020817] bg-white/10 backdrop-blur-md  dark:border-b-gray-800  fixed top-0 left-0 right-0 duration-300 z-50 ">
-      <div className="navbar items-center justify-between hidden h-full gap-10 mx-auto max-w-7xl md:flex">
-        <div className="flex items-center gap-20">
+    <div className="w-full flex items-center justify-center">
+      <div id="navbar" className="  h-16 dark:bg-[#020817] bg-white/10 backdrop-blur-md  dark:border-b-gray-800  fixed top-0 left-0 right-0 duration-300 z-50 ">
+        <div id="navbar-content" className=" items-center justify-between hidden md:flex h-full gap-10 mx-auto max-w-7xl">
+          <div className="flex items-center gap-20">
+            <div>
+              <h1  className="hidden text-xl font-bold md:block">
+                <Link to="/">
+                    C
+                  <span id="Logo" className="">H</span>
+                  <span id="Logo" className="">I</span>
+                  M
+                  <span  id="Logo" className="">O</span>
+                  <span  id="Logo" className="">S</span>
+                  A
+                </Link>
+              </h1>
+            </div>
+
+
+          </div>
+
           <div>
-            <h1 id="Logo" className="hidden text-xl font-extrabold md:block">
-              <Link to="/">
-                {/* <img src={Logo} alt="LOGO" className="w-10 h-10" /> */}
-                CHISMOSA
-              </Link>
-            </h1>
+            <div className="flex gap-10" id="navLink">
+              <button>
+                <NavLink to="/" className={({ isActive }) =>
+                  `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
+                  }`
+                }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {isActive && (
+                        <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500">
+              <span className="absolute inset-0 animate-wave rounded-full bg-green-500 opacity-75" />
+            </span>
+                      )}
+                      Home
+                    </>
+                  )}
+                </NavLink>
+              </button>
+             
+              <button>
+                <NavLink to="/about" className={({ isActive }) =>
+                  `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
+                  }`
+                }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {isActive && (
+                        <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
+                      )}
+                      About us
+                    </>
+                  )}
+                </NavLink>
+              </button>
+
+              <button>
+                <NavLink to="/all-courses" className={({ isActive }) =>
+                  `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
+                  }`
+                }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {isActive && (
+                        <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
+                      )}
+                      Courses
+                    </>
+                  )}
+                </NavLink>
+              </button>
+
+              <button>
+                <NavLink to="/pricing" className={({ isActive }) =>
+                  `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
+                  }`
+                }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {isActive && (
+                        <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
+                      )}
+                      Pricing
+                    </>
+                  )}
+                </NavLink>
+              </button>
+
+              <button>
+                <NavLink to="/contact" className={({ isActive }) =>
+                  `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
+                  }`
+                }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {isActive && (
+                        <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
+                      )}
+                      Contact
+                    </>
+                  )}
+                </NavLink>
+              </button>
+
+
+
+            </div>
           </div>
 
-
-        </div>
-
-        <div>
-          <div className="flex gap-10" id="navLink">
-            <button>
-              <NavLink to="/" className={({ isActive }) =>
-                `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
-                }`
-              }
-              >
-                {({ isActive }) => (
-                  <>
-                    {isActive && (
-                      <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
-                    )}
-                    Home
-                  </>
-                )}
-              </NavLink>
-            </button>
-
-            <button>
-              <NavLink to="/about" className={({ isActive }) =>
-                `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
-                }`
-              }
-              >
-                {({ isActive }) => (
-                  <>
-                    {isActive && (
-                      <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
-                    )}
-                    About us
-                  </>
-                )}
-              </NavLink>
-            </button>
-
-            <button>
-              <NavLink to="/all-courses" className={({ isActive }) =>
-                `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
-                }`
-              }
-              >
-                {({ isActive }) => (
-                  <>
-                    {isActive && (
-                      <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
-                    )}
-                    Courses
-                  </>
-                )}
-              </NavLink>
-            </button>
-
-            <button>
-              <NavLink to="/pricing" className={({ isActive }) =>
-                `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
-                }`
-              }
-              >
-                {({ isActive }) => (
-                  <>
-                    {isActive && (
-                      <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
-                    )}
-                    Pricing
-                  </>
-                )}
-              </NavLink>
-            </button>
-
-            <button>
-              <NavLink to="/contact" className={({ isActive }) =>
-                `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
-                }`
-              }
-              >
-                {({ isActive }) => (
-                  <>
-                    {isActive && (
-                      <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
-                    )}
-                    Contact
-                  </>
-                )}
-              </NavLink>
-            </button>
+          <div className="flex items-center gap-8">
+            {/* user icon and dark mode icon */}
 
 
+            <div id="user">
+              {user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Avatar className="h-10 w-10 overflow-hidden">
+                      <AvatarImage
+                        src={user?.photoUrl || "https://github.com/shadcn.png"}
+                        alt="@shadcn"
+                        className="h-10 w-10 object-cover rounded-full cursor-pointer"
+                      />
+                      <AvatarFallback className="h-full w-full flex items-center justify-center bg-gray-200 text-gray-700 font-medium rounded-full">
+                        CN
+                      </AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
 
-          </div>
-        </div>
+                  <DropdownMenuContent className="flex flex-col gap-2 px-6 py-4 m-auto bg-slate-50 border-gray-200 rounded w-52">
+                    <DropdownMenuLabel className="text-base font-semibold">
+                      My Account
+                    </DropdownMenuLabel>
 
-        <div className="flex items-center gap-8">
-          {/* user icon and dark mode icon */}
-          
+                    <DropdownMenuSeparator className="h-[2px] w-full bg-gray-200 dark:bg-gray-600" />
 
-          <div id="user">
-            {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Avatar className="h-10 w-10 overflow-hidden">
-                    <AvatarImage
-                      src={user?.photoUrl || "https://github.com/shadcn.png"}
-                      alt="@shadcn"
-                      className="h-10 w-10 object-cover rounded-full cursor-pointer"
-                    />
-                    <AvatarFallback className="h-full w-full flex items-center justify-center bg-gray-200 text-gray-700 font-medium rounded-full">
-                      CN
-                    </AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
+                    <DropdownMenuGroup className="flex flex-col gap-1">
+                      <DropdownMenuItem className="cursor-pointer    hover:outline-none">
+                        <span>
+                          <Link to="my-learning">My Learning</Link>
+                        </span>
+                      </DropdownMenuItem>
 
-                <DropdownMenuContent className="flex flex-col gap-2 px-6 py-4 m-auto bg-slate-50 border-gray-200 rounded w-52">
-                  <DropdownMenuLabel className="text-base font-semibold">
-                    My Account
-                  </DropdownMenuLabel>
+                      <DropdownMenuItem className="cursor-pointer hover:outline-none">
+                        <span>
+                          {" "}
+                          <Link to="profile">Edit Profile</Link>{" "}
+                        </span>
+                      </DropdownMenuItem>
 
-                  <DropdownMenuSeparator className="h-[2px] w-full bg-gray-200 dark:bg-gray-600" />
+                      {user.role === "instructor" || user.role === "admin" ? (
+                        <>
+                          <DropdownMenuItem className="cursor-pointer hover:outline-none">
+                            <span>
+                              <Link to="instructor">Dashboard</Link>{" "}
+                            </span>
+                          </DropdownMenuItem>
+                        </>
+                      ) : null}
+                    </DropdownMenuGroup>
 
-                  <DropdownMenuGroup className="flex flex-col gap-1">
-                    <DropdownMenuItem className="cursor-pointer    hover:outline-none">
-                      <span>
-                        <Link to="my-learning">My Learning</Link>
-                      </span>
+                    <DropdownMenuSeparator className="h-[2px] w-full bg-gray-200 dark:bg-gray-600" />
+
+                    <DropdownMenuItem
+                      className="cursor-pointer hover:outline-none"
+                      onClick={logoutHandler}
+                    >
+                      <Button variant="destructive" className="w-full py-2 ">
+                        Logout
+                      </Button>
                     </DropdownMenuItem>
-
-                    <DropdownMenuItem className="cursor-pointer hover:outline-none">
-                      <span>
-                        {" "}
-                        <Link to="profile">Edit Profile</Link>{" "}
-                      </span>
-                    </DropdownMenuItem>
-
-                    {user.role === "instructor" || user.role === "admin" ? (
-                      <>
-                        <DropdownMenuItem className="cursor-pointer hover:outline-none">
-                          <span>
-                            <Link to="instructor">Dashboard</Link>{" "}
-                          </span>
-                        </DropdownMenuItem>
-                      </>
-                    ) : null}
-                  </DropdownMenuGroup>
-
-                  <DropdownMenuSeparator className="h-[2px] w-full bg-gray-200 dark:bg-gray-600" />
-
-                  <DropdownMenuItem
-                    className="cursor-pointer hover:outline-none"
-                    onClick={logoutHandler}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="Link"
+                    onClick={() => {
+                      navigate("/login");
+                    }}
                   >
-                    <Button variant="destructive" className="w-full py-2 ">
-                      Logout
-                    </Button>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="Link"
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                >
-                  Signup
-                </Button>
-                <Button
-                  className="bg-[#FF9500] hover:bg-[#FF9500] cursor-pointer"
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                >
-                  Login
-                </Button>
-              </div>
-            )}
+                    Signup
+                  </Button>
+                  <Button
+                    className="bg-[#FF9500] hover:bg-[#FF9500] cursor-pointer"
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                  >
+                    Login
+                  </Button>
+                </div>
+              )}
+            </div>
+            {/* <div id="darkMode">
+              <DarkMode />
+            </div> */}
           </div>
-          <div id="darkMode">
-            <DarkMode />
-          </div>
+
         </div>
 
-      </div>
-
-      {/* Mobile Nav bar */}
-      <div className="flex items-center justify-between w-full h-full px-4 md:hidden">
-        <Link to="/">
-          {/* <img src={Logo} alt="LOGO" className="w-10 h-10" /> */}
-          Logo
-        </Link>
-        <MobileNavbar />
+        {/* Mobile Nav bar */}
+        <div className="flex items-center justify-between w-full h-full px-4 md:hidden">
+          <Link to="/">
+            {/* <img src={Logo} alt="LOGO" className="w-10 h-10" /> */}
+            Logo
+          </Link>
+          <MobileNavbar />
+        </div>
       </div>
     </div>
   );

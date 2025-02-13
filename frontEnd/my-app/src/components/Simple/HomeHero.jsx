@@ -12,20 +12,20 @@ const HomeHero = () => {
           <GraduationCap /> Grow yourself with us
 
         </button>
+
         <h1 className="text-6xl max-sm:text-3xl font-semibold max-sm:font-bold text-[#002B6B] text-center">
-          Showcase Your Mastery.
-          <br />
-          Get Connected.
+          Empowering Lifelong Learning
+          <br className="max-sm:hidden" />
+          for Tomorrow’s Leaders.
         </h1>
 
-        <p className="text-base text-[#002B6B] text-center">
-          Create your profile, showcase your skills, and let <br /> employers
-          find you.
+        <p className="text-base text-[#002B6B] text-center max-sm:text-wrap">
+          Join a dynamic learning community with access to world-class courses,   <br className="max-sm:hidden" /> expert instructors, and cutting-edge resources.
         </p>
 
-        <button className="relative flex items-center gap-3 border border-[#8AB9FF] text-[#0066FF] bg-white py-3 px-6 rounded-full cursor-pointer">
-          <span className="text-lg font-medium">Get Started</span>
-          <ArrowUpRight className=" bg-[#0066FF] text-white rounded-full p-1" />
+        <button className=" border  text-white bg-[#3385FF] py-3 px-6 rounded-full cursor-pointer">
+          Explore Courses
+
         </button>
 
       </div>

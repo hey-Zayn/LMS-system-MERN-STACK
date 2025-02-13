@@ -24,6 +24,8 @@ import AboutPage from "./pages/AboutPage";
 import CreateLecture from "./pages/instructor/lecture/CreateLecture";
 import EditLecture from "./pages/instructor/lecture/EditLecture";
 import CourseDetails from "./pages/student/CourseDetails";
+import Footer from "./components/Footer";
+import CourseProgress from "./pages/student/CourseProgress";
 // import { Sidebar } from "./components/ui/sidebar";
 
 const appRouter = createBrowserRouter([
@@ -78,6 +80,10 @@ const appRouter = createBrowserRouter([
         path: "course-detail/:courseId",
         element: <CourseDetails />,
       },
+      {
+        path: "course-progress/:courseId",
+        element: <CourseProgress />,
+      },
       // Instructor Routes Start form Here.
       {
         path: "instructor",
@@ -125,6 +131,7 @@ const App = () => {
           <HeroSectionStudent/>
         <Login/> */}
         <RouterProvider router={appRouter} />
+        
       </main>
     </>
   );
