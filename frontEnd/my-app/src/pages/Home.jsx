@@ -7,6 +7,7 @@ import WhyChooseus from '@/components/Simple/WhyChooseus'
 import HowItWorks from '@/components/Simple/HowItWorks'
 import FAQS from '@/components/Simple/FAQS'
 import Clients from '@/components/Simple/Clients'
+import Footer from '@/components/Footer'
 
 
 
@@ -22,7 +23,7 @@ const Home = () => {
         <Clients/>
         <FAQS/>
         <CTA/>
-      
+        <Footer/>
     </div>
   )
 }

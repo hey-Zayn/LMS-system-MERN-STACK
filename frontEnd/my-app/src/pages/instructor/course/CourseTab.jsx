@@ -281,7 +281,7 @@ const CourseTab = () => {
                 Back
               </Button>
 
-              <Button disabled={isLoading} onClick={()=>{updateCourseHandler()}}>
+              <Button disabled={isLoading} onClick={()=>{updateCourseHandler()}} className="bg-[#0066FF] hover:bg-blue-700 text-white cursor-pointer">
                 {isLoading ? (
                   <>
                     Please wait ...

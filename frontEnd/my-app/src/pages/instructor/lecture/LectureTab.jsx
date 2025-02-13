@@ -181,7 +181,7 @@ const LectureTab = () => {
           </div>
         )}
         <div>
-          <Button className="cursor-pointer mt-4" onClick={editLectureHandler}>
+          <Button className="cursor-pointer mt-4 bg-[#0066FF] hover:bg-blue-700 text-white" onClick={editLectureHandler}>
             Save Changes
           </Button>
         </div>

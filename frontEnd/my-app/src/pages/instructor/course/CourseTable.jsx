@@ -23,6 +23,7 @@ const CourseTable = () => {
   return (
     <div>
       <Button
+        className="mb-4 bg-[#0066FF] hover:bg-blue-700 text-white cursor-pointer"
         onClick={() => {
           navigate("create");
         }}
@@ -46,7 +47,7 @@ const CourseTable = () => {
                 {courses?.coursePrice || "NA"}
               </TableCell>
               <TableCell>
-                <Badge>{courses.isPublished ? "Published" : "Draft"}</Badge>  
+                <Badge className={`${courses.isPublished ? "bg-[#DCFCE7] text-green-700 hover:bg-[#DCFCE7] hover:text-green-700" : "bg-[#F9E2E2] text-red-700 hover:bg-[#F9E2E2] hover:text-red-700"}`}>{courses.isPublished ? "Published" : "Draft"}</Badge>  
               </TableCell>
               <TableCell>{courses.courseTitle}</TableCell>
               <TableCell className="text-right">
