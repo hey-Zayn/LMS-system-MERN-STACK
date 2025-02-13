@@ -81,8 +81,9 @@ const AddCourse = () => {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2"  >
           <Button
+            
             variant="outline"
             onClick={() => {
               navigate("../course");
@@ -90,7 +91,7 @@ const AddCourse = () => {
           >
             Back
           </Button>
-          <Button disable={isLoading} onClick={()=>{createCourseHandler()}}>
+          <Button disable={isLoading} onClick={()=>{createCourseHandler()}} className="bg-[#0066FF] hover:bg-blue-700 text-white cursor-pointer">
             {
               isLoading ? (
               <>

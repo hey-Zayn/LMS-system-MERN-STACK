@@ -90,7 +90,7 @@ const CreateLecture = () => {
           >
             Back to course
           </Button>
-          <Button disabled={isLoading} onClick={createLectureHandler}>
+          <Button disabled={isLoading} onClick={createLectureHandler} className="bg-[#0066FF] hover:bg-blue-700 text-white cursor-pointer">
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4  animate-spin" />
