@@ -2,18 +2,20 @@ import AccountToggle from "@/components/Simple/AccountToggle";
 import SearchBar from "@/components/Simple/SearchBar";
 import SideBarBottom from "@/components/Simple/SideBarBottom";
 import { Button } from "@/components/ui/button";
-import { useLoadUserQuery } from "@/features/api/AuthApi";
+
 import {
  
   LandPlot,
   LayoutDashboard,
+  UserRoundCheck,
+  UserSearch,
  
 } from "lucide-react";
 
 import { Link, Outlet } from "react-router-dom";
-import Dashboard from "./Dashboard";
+import AdminDashboard from "./AdminDashboard";
 
-const Sidebar = () => {
+const AdminSidebar = () => {
  
   return (
     <div className="flex mt-12">
@@ -42,6 +44,22 @@ const Sidebar = () => {
                   <span>Courses</span>
                 </button>
               </Link>
+              
+              <Link to="course">
+                <button className="flex items-center justify-start gap-2 w-full rounded px-2 py-1.5 text-sm transition-all hover:bg-stone-200 bg-transparent text-stone-500">
+                  
+                  <UserSearch className="text-stone-500" size={18} />
+                  <span>Students</span>
+                </button>
+              </Link>
+              
+              <Link to="course">
+                <button className="flex items-center justify-start gap-2 w-full rounded px-2 py-1.5 text-sm transition-all hover:bg-stone-200 bg-transparent text-stone-500">
+                  
+                  <UserRoundCheck className="text-stone-500" size={18} />
+                  <span>Teachers</span>
+                </button>
+              </Link>
             </div>
           </div>
 
@@ -53,10 +71,9 @@ const Sidebar = () => {
 
       <div className="flex-1 p-10 ">
         <Outlet />
-        {/* <Dashboard/> */}
+        {/* <AdminDashboard/> */}
       </div>
     </div>
   );
 };
-
-export default Sidebar;
+    export default AdminSidebar;

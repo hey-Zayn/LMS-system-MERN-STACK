@@ -11,7 +11,7 @@ const Dashboard = () => {
     <>
       <div>
       <TopBarDashboard />
-      <div className="w-full flex flex-col md:flex-row lg:flex-row gap-4">
+      <div className="w-full flex  flex-col md:flex-row lg:flex-row gap-4">
         <CardLectureDashboard />
       </div>
       <div className="w-full  flex items-center justify-center flex-col md:flex-row lg:flex-row gap-4 mt-4">

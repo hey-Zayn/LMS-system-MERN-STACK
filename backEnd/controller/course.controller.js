@@ -30,10 +30,51 @@ const createCourse = async (req, res) => {
   }
 };
 
+const searchCourse = async (req, res) => {
+  try {
+    const { query = "", categories = [], sortByPrice = "" } = req.query;
+    console.log(categories);
+
+    // create search query
+    const searchCriteria = {
+      isPublished: true,
+      $or: [
+        { courseTitle: { $regex: query, $options: "i" } },
+        { subTitle: { $regex: query, $options: "i" } },
+        { category: { $regex: query, $options: "i" } },
+      ]
+    }
+
+    // if categories selected
+    if (categories.length > 0) {
+      searchCriteria.category = { $in: categories };
+    }
+
+    // define sorting order
+    const sortOptions = {};
+    if (sortByPrice === "low") {
+      sortOptions.coursePrice = 1;//sort by price in ascending
+    } else if (sortByPrice === "high") {
+      sortOptions.coursePrice = -1; // descending
+    }
+
+    let courses = await Course.find(searchCriteria).populate({ path: "creator", select: "name photoUrl" }).sort(sortOptions);
+
+    return res.status(200).json({
+      success: true,
+      courses: courses || []
+    });
+
+  } catch (error) {
+    console.log(error);
+
+  }
+}
+
 const getPublishedCourses = async (_, res) => {
   try {
     const courses = await Course.find({ isPublished: true }).populate({ path: "creator", select: "name photoUrl" });
-   
+
     if (!courses || courses.length === 0) {
       return res.status(404).json({
         success: false,
@@ -339,5 +380,5 @@ const publishCourse = async (req, res) => {
 
 module.exports = {
   createCourse, getCreatorCourses, editCourse, getCourseById, createLecture, getCourseLectures,
-  editLecture, removeLecture, getLectureById, publishCourse, getPublishedCourses
+  editLecture, removeLecture, getLectureById, publishCourse, getPublishedCourses, searchCourse
 };
