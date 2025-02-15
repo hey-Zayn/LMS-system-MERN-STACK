@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 
 import { BadgeInfo, Lock, PlayCircle, Star, StarHalf } from "lucide-react";
 import ReactPlayer from "react-player";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CourseDetails = () => {
     const params = useParams();
@@ -69,7 +69,9 @@ const CourseDetails = () => {
                     </CardContent>
                     <CardFooter>
                         {purchasedCourse ? (
-                            <Button className="w-full">Start Course</Button>
+                            <Link to={`/course-progress/${courseId}`}>
+                                <Button className="w-full">Start Course</Button>
+                            </Link>
                         ) : (
                            <BuyCourseButton courseId={courseId}/>
                         )}

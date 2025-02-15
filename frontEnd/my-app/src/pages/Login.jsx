@@ -18,8 +18,9 @@ import {
 } from "@/features/api/AuthApi";
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
-import { toast } from "sonner"; 
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const Login = () => {
   const [signupInput, setSignupInput] = useState({
@@ -65,10 +66,10 @@ const Login = () => {
     await action(inputData);
     // console.log(inputData);
   };
- 
-  const navigate = useNavigate();  
 
-  
+  const navigate = useNavigate();
+
+
   useEffect(() => {
     if (registerIsSuccess && registerData) {
       toast.success(registerData.message || "Signup Successfully.");
@@ -80,7 +81,7 @@ const Login = () => {
     if (loginIsSuccess && loginData) {
       toast.success(loginData.message || "Login Successfully");
       navigate("/");
-      
+
     }
     if (loginError) {
       // Check if loginError is defined before accessing its properties
@@ -159,15 +160,30 @@ const Login = () => {
                   value={signupInput.password}
                 />
               </div>
+              <div className="space-y-1">
+                <Label htmlFor="new">Register as</Label>
+                <RadioGroup defaultValue="option-one" onValueChange={(value) => {
+                  console.log(value);
+                }}>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="option-one" id="option-one" />
+                    <Label htmlFor="option-one">Student</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="option-two" id="option-two" />
+                    <Label htmlFor="option-two">Teacher</Label>
+                  </div>
+                </RadioGroup>
+              </div>
             </CardContent>
             <CardFooter>
               <Button
-            
+
                 onClick={() => {
                   handelRegistation("signup");
                 }}
               >
-               {registerIsLoading ? (
+                {registerIsLoading ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   </>
@@ -184,7 +200,7 @@ const Login = () => {
             <CardHeader>
               <CardTitle>Login</CardTitle>
               <CardDescription>
-                Login your password here. After signup, you'll be logged in.
+                Login your password here. After signup, you&apos;ll be logged in.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -214,6 +230,7 @@ const Login = () => {
                   value={loginInput.password}
                 />
               </div>
+             
             </CardContent>
             <CardFooter>
               <Button

@@ -24,10 +24,12 @@ import AboutPage from "./pages/AboutPage";
 import CreateLecture from "./pages/instructor/lecture/CreateLecture";
 import EditLecture from "./pages/instructor/lecture/EditLecture";
 import CourseDetails from "./pages/student/CourseDetails";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 import CourseProgress from "./pages/student/CourseProgress";
 // import { Sidebar } from "./components/ui/sidebar";
-
+import AdminSidebar from "./pages/admin/AdminSidebar";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import SearchPage from "./pages/student/SearchPage";
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -69,6 +71,10 @@ const appRouter = createBrowserRouter([
         element: <Profile />,
       },
       {
+        path: "course/search",
+        element: <SearchPage />,
+      },
+      {
         path: "major",
         element: <Major />,
       },
@@ -88,9 +94,7 @@ const appRouter = createBrowserRouter([
       {
         path: "instructor",
         element: (
-          // <AdminRoute>
             <Sidebar/>
-          // </AdminRoute>
         ),
         children:[
           {
@@ -117,6 +121,19 @@ const appRouter = createBrowserRouter([
             path:'course/:courseId/lecture/:lectureId',
             element:<EditLecture/>
           },
+        ]
+      },
+      {
+        path: "admin",
+        element: (
+            <AdminSidebar/>
+        ),
+        children:[
+          {
+            path:'dashboard',
+            element:<AdminDashboard/>
+          },
+          
         ]
       }
     ],

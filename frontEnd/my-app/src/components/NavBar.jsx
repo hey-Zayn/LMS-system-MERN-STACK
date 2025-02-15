@@ -25,19 +25,17 @@ import {
 
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useLogoutUserMutation } from "@/features/api/AuthApi";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger);
 // import Logo from "../Assets/Logo.png";
 
 const NavBar = () => {
-  // const navbarRef = useRef(null);
   useEffect(() => {
-    // GSAP animation for navbar width and position change
     gsap.to("#navbar", {
       width: "75%",
       borderRadius: "50px",
@@ -75,11 +73,12 @@ const NavBar = () => {
   useGSAP(() => {
     timeline.from("#navbar", {
       opacity: 0,
-      ease: "power2.inOut",
+      ease: "power2.in",
       y: -200,
 
     })
   });
+
 
   const { user } = useSelector((store) => store.auth);
 

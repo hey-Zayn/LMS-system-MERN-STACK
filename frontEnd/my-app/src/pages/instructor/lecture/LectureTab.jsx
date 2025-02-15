@@ -62,6 +62,7 @@ const LectureTab = () => {
   const editLectureHandler = async () => {
     console.log({ lectureTitle, uploadVideoInfo, isFree, courseId, lectureId });
 
+
     await editLecture({
       lectureTitle,
       videoInfo: uploadVideoInfo,
@@ -69,6 +70,7 @@ const LectureTab = () => {
       courseId,
       lectureId,
     });
+    navigate(`/instructor/course/${courseId}/lecture`)
   };
 
   useEffect(() => {
