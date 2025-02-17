@@ -1,10 +1,13 @@
 
+import { useLoadUserQuery } from '@/features/api/AuthApi'
 import Course from './Course'
 
 const MyLearning = () => {
-  const isLoading = false;
-  const MyLearningcourse = [];
-  
+  // const isLoading = false;
+  const {data, isLoading} = useLoadUserQuery();
+  const MyLearningcourse = data?.user?.enrolledCourses || [];
+  console.log(MyLearningcourse);
+
   return (
     <div className='max-w-4xl mx-auto  my-24 px-4 md:px-0'>
       <h1 className='font-bold text-2xl'>My Learning</h1>
@@ -15,8 +18,8 @@ const MyLearning = () => {
           <p>You are not enrolled in any course.</p>
         ) : (
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {MyLearningcourse.map((index) => (
-              <Course key={index} course={course} />
+            {MyLearningcourse.map((course) => (
+              <Course key={course._id} course={course} />
             ))}
           </div>
         )}

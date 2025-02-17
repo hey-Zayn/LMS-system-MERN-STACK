@@ -105,6 +105,7 @@ const NavBar = () => {
                     C
                   <span id="Logo" className="">H</span>
                   <span id="Logo" className="">I</span>
+                  <span id="Logo" className="">S</span>
                   M
                   <span  id="Logo" className="">O</span>
                   <span  id="Logo" className="">S</span>
@@ -155,7 +156,7 @@ const NavBar = () => {
               </button>
 
               <button>
-                <NavLink to="/all-courses" className={({ isActive }) =>
+                <NavLink to="/course/search?query" className={({ isActive }) =>
                   `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
                   }`
                 }
@@ -171,22 +172,7 @@ const NavBar = () => {
                 </NavLink>
               </button>
 
-              <button>
-                <NavLink to="/pricing" className={({ isActive }) =>
-                  `relative text-black text-sm font-medium transition-colors  ${isActive ? "active" : ""
-                  }`
-                }
-                >
-                  {({ isActive }) => (
-                    <>
-                      {isActive && (
-                        <span className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-green-500" />
-                      )}
-                      Pricing
-                    </>
-                  )}
-                </NavLink>
-              </button>
+            
 
               <button>
                 <NavLink to="/contact" className={({ isActive }) =>

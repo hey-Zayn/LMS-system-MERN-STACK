@@ -1,11 +1,14 @@
 import { Command, Search } from 'lucide-react'
+import { useState } from 'react';
 // import React from 'react'
 
 const SearchBar = () => {
+  const [searchQuery, setSearchQuery] = useState("");
   return (
     <div>
       <>
-      <div className="bg-stone-200 mb-4 relative rounded flex items-center px-2 py-1.5 text-sm">
+      <div className="bg-stone-200 mb-4 relative rounded flex items-center px-2 py-1.5 text-sm ">
+          
           <Search className="mr-2" size={15} />
           <input
             // onFocus={(e) => {
@@ -16,6 +19,7 @@ const SearchBar = () => {
             placeholder="Search"
             className="w-full bg-transparent placeholder:text-stone-400 focus:outline-none"
           />
+        
 
           <span className="p-1 text-xs flex gap-0.5 items-center shadow bg-stone-50 rounded absolute right-1.5 top-1/2 -translate-y-1/2">
             <Command size={15} />K
