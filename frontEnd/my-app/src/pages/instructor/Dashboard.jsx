@@ -7,7 +7,9 @@ import VisitorsChart from "@/components/Simple/VisitorsChart";
 
 
 const Dashboard = () => {
+  // const {data, isLoading} = useLoadUserQuery();
   return (
+
     <>
       <div>
       <TopBarDashboard />

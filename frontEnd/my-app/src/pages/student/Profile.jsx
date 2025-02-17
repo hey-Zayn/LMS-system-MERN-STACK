@@ -11,14 +11,15 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
-import  { useEffect, useState } from "react";
+import { Edit, Edit2Icon, Loader2, Save } from "lucide-react";
+import { useEffect, useState } from "react";
 import Course from "./Course";
 
 import { useLoadUserQuery, useUpdateUserMutation } from "@/features/api/AuthApi";
 import { toast } from "sonner";
 
 const Profile = () => {
+  const [isHovered, setIsHovered] = useState(false);
   const [name, setName] = useState("");
   const [profilePhoto, setProfilePhoto] = useState("");
 
@@ -67,7 +68,7 @@ const Profile = () => {
   const user = data && data.user;
 
   console.log(user);
-  
+
 
   return (
     <div className="max-w-4xl mx-auto  my-24 px-4 md:px-0">
@@ -109,9 +110,24 @@ const Profile = () => {
           </div>
           <Dialog>
             <DialogTrigger asChild>
-              <Button size="sm" className="mt-2">
+              {/* <Button size="sm" className="mt-2">
                 Edit Profile
-              </Button>
+              </Button> */}
+              
+          <button
+           
+            className=" relative flex text-sm items-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-500 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] cursor-pointer "
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <Edit2Icon
+            size={16}
+              className={`w-4 h-4 transition-transform duration-300 ${
+                isHovered ? "scale-125" : "scale-100"
+              }`}
+            />
+             Edit Profile
+          </button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
@@ -144,10 +160,18 @@ const Profile = () => {
                 </div>
               </div>
               <DialogFooter>
-                <Button
-                  disabled={updateUserIsLoading}
-                  onClick={updateUserHandler}
+               
+
+                <button
+
+                  className=" relative flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] cursor-pointer "
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
                 >
+                  <Save
+                    className={`w-4 h-4 transition-transform duration-300 ${isHovered ? "scale-125" : "scale-100"
+                      }`}
+                  />
                   {updateUserIsLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please
@@ -156,7 +180,8 @@ const Profile = () => {
                   ) : (
                     "Save Changes"
                   )}
-                </Button>
+                </button>
+
               </DialogFooter>
             </DialogContent>
           </Dialog>
